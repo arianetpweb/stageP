@@ -48,23 +48,34 @@
             <div class="col-md-6">
                 <label for="name" class="form-label">Nom</label>
                 <input type="text" class="form-control" name="name">
-
+                @error('name')
+                <i class="text-danger">{{ $message }}</i>
+            @enderror
             </div>
             <div class="col-md-6">
                 <label for="firstName" class="form-label">Prénom</label>
                 <input type="text" class="form-control" name="firstName">
+                @error('firstName')
+                    <i class="text-danger">{{ $message }}</i>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Email </label>
                 <input type="email" class="form-control" name="email" placeholder="john@example.com">
+                @error('email')
+                    <i class="text-danger">{{ $message }}</i>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="contact" class="form-label">Contact</label>
                 <input type="tel" class="form-control" name="contact" placeholder="Numéro de téléphone">
+                @error('contact')
+                    <i class="text-danger">{{ $message }}</i>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="password" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" name="password"  id="passwordname">
+                <input type="password" class="form-control" name="password">
                 @error('password')
                     <i class="text-danger">{{ $message }}</i>
                 @enderror
@@ -76,7 +87,7 @@
             </div>
 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary">S'inscrire</button>
             </div>
         </form>
     </div>

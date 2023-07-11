@@ -52,8 +52,8 @@
         </div><br>
         <div class="col-12">
             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="submit" class="btn btn-primary">Log in</button> &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="{{ route('inscriptions') }}" type="button" class="btn btn-primary sign">Sign in</a>
+            <button type="submit" class="btn btn-primary">Se connecter</button> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{{ route('inscriptions') }}" type="button" class="btn btn-primary sign">S'inscrire</a>
         </div>
     </form>
 </body>

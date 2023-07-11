@@ -12,7 +12,7 @@ class UsersController extends Controller
     }
 
     public function sign(){
-        return view('signin');
+        return view('inscription');
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class UsersController extends Controller
             'contact' => 'required',
             'password' => 'required|confirmed|min:8',
         ]);
-        
+
         $user = User::create([
             'name' => $request->input('name'),
             'firstName' => $request->input('firstName'),
@@ -49,7 +49,7 @@ class UsersController extends Controller
     }
 
 
-    public function traitement(Request $request)
+    public function connexion(Request $request)
     {
         $credentials = $request->only('email', 'password');
 

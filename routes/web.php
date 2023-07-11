@@ -21,7 +21,7 @@ Route::group(['namespace'=>'\App\Http\Controllers'], function (){
  Route::get('/welcome', 'UsersController@index')->name('welcome');
  Route::get('/inscriptions', 'UsersController@sign')->name('inscriptions');
  Route::post('/register', 'UsersController@store')->name('post_register');
- Route::get('/register', 'UsersController@create')->name('get_register');
- Route::post('/traitement', 'UsersController@traitement')->name('post_traitement');
+ Route::get('/acceuil', 'UsersController@create')->name('get_register');
+ Route::post('/connexion', 'UsersController@connexion')->name('post_traitement');
 
 });

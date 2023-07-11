@@ -1,0 +1,22 @@
+.fieldset {
+    /* Rétablir les styles par défaut */
+    border: 1px solid #ced4da;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 3px;
+
+  }
+  .fieldset legend {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+  }
+
+.form-control:hover{
+    color: rgb(207, 26, 26);
+    border-color:rgb(207, 26, 26) ;
+}
+
+.btn{
+    margin: 20px;
+    border-radius: none;
+}

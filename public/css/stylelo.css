@@ -1,0 +1,134 @@
+body {
+    padding: 10px;
+    background-color: #FCF9F2;
+}
+
+.desc {
+    width: 9crem;
+}
+
+.photo {
+    width: 200px;
+    height: 200px;
+    padding-left: 5qrem;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+h1 {
+    color: rgb(69, 43, 12);
+    font-family: TAN Mon Cheri;
+}
+
+h4 {
+    color: #6D493B;
+    background-color: #E4B696;
+    /* Couleur d'arrière-plan */
+    padding: 10px;
+    /* Espacement interne pour donner une forme */
+    border-radius: 10px;
+    /* Forme arrondie */
+
+}
+
+main {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 4rem;
+    padding: 10px;
+    font-family: 'Source sans Pro', Calibri, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
+.section-right {
+    height: 400px;
+    width: 40%;
+}
+
+.dot {
+
+    font-size: 20px;
+    color: #6D493B;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/*.image1{
+    position:absolute;
+    z-index: 1;
+}
+.image2{
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}*/
+
+
+
+:root {
+    --progress: #6D493B;
+}
+
+.progressbar-wrapper {
+    background-color: #D1BDA0;
+    border-radius: 50px;
+    width: 100%;
+    height: 16, 9;
+}
+
+.progressbar {
+    background-color: var(--progress);
+
+    padding: 1rem;
+    border-radius: 50px;
+
+}
+
+.page1 {
+    width: 69%;
+}
+
+.page2 {
+    width: 50%;
+}
+
+.page3 {
+    width: 35%;
+}
+
+.page4 {
+    width: 25%;
+}
+
+.text {
+    color: #6D493B;
+    font-size: 12;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.page .rectangle {
+    width: 100%;
+    height: 10px;
+    /* Définissez ici la hauteur souhaitée pour votre rectangle */
+    background-color: #C19B87;
+    /* Définissez ici la couleur souhaitée pour votre rectangle */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.px {
+    color: #32231F;
+}
+
+.point {
+    width: 50px;
+}

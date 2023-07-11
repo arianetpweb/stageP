@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Custom;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -57,6 +59,17 @@ class UsersController extends Controller
             return redirect()->route('get_register');
         } else {
             return redirect()->back()->withErrors(['message' => 'Identifiants invalides']);
+        }
+    }
+    public function addtask(Request $request)
+    {
+        try {
+            $user = Custom::make($request->all());
+            $user->save();
+
+            return redirect()->back()->with('success', 'Succès');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Une erreur a été rencontrée');
         }
     }
 }

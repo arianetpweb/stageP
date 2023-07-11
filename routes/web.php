@@ -23,5 +23,6 @@ Route::group(['namespace'=>'\App\Http\Controllers'], function (){
  Route::post('/register', 'UsersController@store')->name('post_register');
  Route::get('/acceuil', 'UsersController@create')->name('get_register');
  Route::post('/connexion', 'UsersController@connexion')->name('post_traitement');
+ Route::post('/tache', 'UsersController@addtask')->name('add');
 
 });

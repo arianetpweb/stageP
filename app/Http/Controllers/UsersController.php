@@ -2,22 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Custom;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function index(){
-        return view('app');
+
+
+    public function index()
+    {
+        $user = Auth::user();
+        return view('home', [
+            'taches_en_cours' => Task::where('etat', 'en cours')->where('user_id', $user->id)->get(),
+            'taches_terminées' => Task::where('etat', 'terminée')->where('user_id', $user->id)->get(),
+
+        ]);
     }
 
-    public function sign(){
-        return view('inscription');
+    public function signup()
+    {
+        return view('register');
     }
 
-    public function store(Request $request)
+    public function register(Request $request)
     {
         /*try {
             $user = User::make($request->all());
@@ -44,14 +54,15 @@ class UsersController extends Controller
         ]);
 
         // Redirection après l'enregistrement réussi
-        return redirect('/welcome')->with('success', 'Enregistrement réussi !');
-    }
-    public function create(){
-        return view('home');
+        return redirect()->route('index')->with('success', 'Enregistrement réussi !');
     }
 
+    public function login()
+    {
+        return view('login');
+    }
 
-    public function connexion(Request $request)
+    public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -59,17 +70,6 @@ class UsersController extends Controller
             return redirect()->route('get_register');
         } else {
             return redirect()->back()->withErrors(['message' => 'Identifiants invalides']);
-        }
-    }
-    public function addtask(Request $request)
-    {
-        try {
-            $user = Custom::make($request->all());
-            $user->save();
-
-            return redirect()->back()->with('success', 'Succès');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Une erreur a été rencontrée');
         }
     }
 }

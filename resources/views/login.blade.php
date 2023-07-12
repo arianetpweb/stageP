@@ -11,6 +11,11 @@
             justify-content: center;
         }
 
+        h2 {
+            color: blue;
+            text-align: center
+        }
+
         form {
 
             max-width: 600px;
@@ -25,10 +30,12 @@
         .navbar {
             background-color: rgb(105, 105, 201);
         }
-        .navbar-brand{
+
+        .navbar-brand {
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
-        .sign{
+
+        .sign {
             padding: 10;
         }
     </style>
@@ -40,8 +47,10 @@
             <a class="navbar-brand text-light" href="#">Lorem</a>
         </div>
     </nav>
-    <form action="{{ route('post_traitement') }}" method="post">
-@csrf
+    <h2>Connexion</h2>
+    <br>
+    <form action="{{ route('post_login') }}" method="post">
+        @csrf
         <div class="form-group">
             <label for="email" class="form-label">Email</label>
             <input type="text" name="email" class="form-control">
@@ -53,7 +62,7 @@
         <div class="col-12">
             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
             <button type="submit" class="btn btn-primary">Se connecter</button> &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="{{ route('inscriptions') }}" type="button" class="btn btn-primary sign">S'inscrire</a>
+            <a href="{{ route('get_register') }}" type="button" class="btn btn-primary sign">S'inscrire</a>
         </div>
     </form>
 </body>

@@ -17,12 +17,16 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 Route::group(['namespace'=>'\App\Http\Controllers'], function (){
+    Route::group(['middleware'=>'auth'], function (){
+        Route::get('/', 'UsersController@index')->name('index');
+        Route::post('/tasks', 'TaskController@addtask')->name('add_task');
+        Route::put('/tasks/{id}', 'TaskController@updateTask')->name('update_task');
+    });
 
- Route::get('/welcome', 'UsersController@index')->name('welcome');
- Route::get('/inscriptions', 'UsersController@sign')->name('inscriptions');
- Route::post('/register', 'UsersController@store')->name('post_register');
- Route::get('/acceuil', 'UsersController@create')->name('get_register');
- Route::post('/connexion', 'UsersController@connexion')->name('post_traitement');
- Route::post('/tache', 'UsersController@addtask')->name('add');
-
+    Route::group(['middleware'=>'guest'], function (){
+        Route::get('/login', 'UsersController@login')->name('get_login');
+        Route::get('/register', 'UsersController@signup')->name('get_register');
+        Route::post('/register', 'UsersController@register')->name('post_register');
+        Route::post('/login', 'UsersController@authenticate')->name('post_login');
+    });
 });

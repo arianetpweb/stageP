@@ -15,17 +15,15 @@
             color: rgb(36, 128, 182);
         }
 
-        .container {
-
+        /*.container {
             border: 2;
-        }
+        }*/
         form{
             margin: auto;
             background: #d7e3ee;
             padding: 30px;
             border: 2px solid #CCC;
             border-radius: 30px;
-
         }
         .navbar {
             background-color: rgb(105, 105, 201);

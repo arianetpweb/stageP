@@ -15,9 +15,7 @@
             color: rgb(36, 128, 182);
         }
 
-        /*.container {
-            border: 2;
-        }*/
+
         form{
             margin: auto;
             background: #d7e3ee;
@@ -79,7 +77,7 @@
                 @enderror
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="password_confirmation" class="form-label">Confirmer Mot de passe </label>
                 <input type="password" name="password_confirmation" class="form-control">
             </div>

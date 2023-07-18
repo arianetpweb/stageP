@@ -10,19 +10,19 @@ class TaskController extends Controller
 {
     public function addtask(Request $request)
     {
-        /*try {*/
+        try {
 
         $user = Auth::user();
         $tache = Task::make($request->all());
-        $tache->etat = "en cours";
         $tache->user()->associate($user);
         $tache->save();
         $taches = Task::all();
 
         return redirect()->route('get_register')->with('success', 'Succès');
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Une erreur a été rencontrée');
-        }*/
+        }
+
     }
     public function updateTask(int $id)
     {
@@ -30,8 +30,19 @@ class TaskController extends Controller
         if ($tache == null) {
             return redirect()->back();
         }
-        $tache->update(['etat' => 'terminée']);
+        $tache->update(['terminee' => true]);
 
         return redirect()->back();
     }
+    public function deleteTask($id)
+    {
+        try {
+            echo('Voulez-vous vraiment supprimer cette tache?
+           <span> <i class="fa-regular fa-check"></i>Oui</span>');
+            Task::destroy($id);
+            return redirect()->back()->with('message', 'La tache a été supprimée avec succès.');
+                } catch (\Throwable $th) {
+           return redirect()->back()->with('message','Erreur');
+   };
+}
 }

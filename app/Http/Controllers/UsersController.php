@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
+
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+
 
 class UsersController extends Controller
 {
@@ -16,8 +20,8 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         return view('home', [
-            'taches_en_cours' => Task::where('etat', 'en cours')->where('user_id', $user->id)->get(),
-            'taches_terminées' => Task::where('etat', 'terminée')->where('user_id', $user->id)->get(),
+            'taches_en_cours' => Task::where('terminee', false)->where('user_id', $user->id)->get(),
+            'taches_terminées' => Task::where('terminee', true)->where('user_id', $user->id)->get(),
 
         ]);
     }
@@ -29,32 +33,28 @@ class UsersController extends Controller
 
     public function register(Request $request)
     {
-        /*try {
-            $user = User::make($request->all());
-            $user->save();
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'firstName' => 'required',
+                'email' => 'required|email|unique:users',
+                'contact' => 'required',
+                'password' => 'required|confirmed|min:8',
+            ]);
 
-            return redirect()->route('get_register')->with('success', 'Succès');
+            $user = User::create([
+                'name' => $request->input('name'),
+                'firstName' => $request->input('firstName'),
+                'email' => $request->input('email'),
+                'contact' => $request->input('contact'),
+                'password' => bcrypt($request->input('password')),
+            ]);
+
+            // Redirection après l'enregistrement réussi
+            return redirect()->route('index')->with('success', 'Enregistrement réussi !');
         } catch (\Throwable $th) {
             return redirect()->route('get_register')->with('error', 'Une erreur a été rencontrée');
-        }*/
-        $this->validate($request, [
-            'name' => 'required',
-            'firstName' => 'required',
-            'email' => 'required|email|unique:users',
-            'contact' => 'required',
-            'password' => 'required|confirmed|min:8',
-        ]);
-
-        $user = User::create([
-            'name' => $request->input('name'),
-            'firstName' => $request->input('firstName'),
-            'email' => $request->input('email'),
-            'contact' => $request->input('contact'),
-            'password' => bcrypt($request->input('password')),
-        ]);
-
-        // Redirection après l'enregistrement réussi
-        return redirect()->route('index')->with('success', 'Enregistrement réussi !');
+        }
     }
 
     public function login()
@@ -71,5 +71,16 @@ class UsersController extends Controller
         } else {
             return redirect()->back()->withErrors(['message' => 'Identifiants invalides']);
         }
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+
+        Auth::logout();
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

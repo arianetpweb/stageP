@@ -21,6 +21,8 @@ Route::group(['namespace'=>'\App\Http\Controllers'], function (){
         Route::get('/', 'UsersController@index')->name('index');
         Route::post('/tasks', 'TaskController@addtask')->name('add_task');
         Route::put('/tasks/{id}', 'TaskController@updateTask')->name('update_task');
+        Route::delete('/tasks/{id}', 'TaskController@deleteTask')->name('delete_task');
+        Route::post('/logout', 'UsersController@logout')->name('post_logout');
     });
 
     Route::group(['middleware'=>'guest'], function (){
@@ -28,5 +30,6 @@ Route::group(['namespace'=>'\App\Http\Controllers'], function (){
         Route::get('/register', 'UsersController@signup')->name('get_register');
         Route::post('/register', 'UsersController@register')->name('post_register');
         Route::post('/login', 'UsersController@authenticate')->name('post_login');
+
     });
 });

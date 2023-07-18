@@ -14,12 +14,17 @@
             background-color: rgb(105, 105, 201);
         }
 
+        .btn-danger {
+            margin: 20px;
+            text-align: left;
+        }
+
         .content {
             max-width: 700px;
             margin: auto;
         }
 
-        form {
+        .task {
             margin: auto;
             padding: 30px;
             border: 1px solid #CCC;
@@ -27,34 +32,36 @@
 
         }
 
-        .container {
-            /*
-            display: flex;
-            align-items: center;
-            justify-content: center;*/
-            margin: 20px;
-        }
-
         .list {
             padding: 20px;
             margin: 20px;
         }
-        .col-md-6{
-            flex-direction: column;
+
+        .row .col-md-2 #logout:hover::after {
+            content: "Déconnecter";
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="#">Bonjour {{ Auth::user()->firstName }}</a>
         </div>
     </nav>
+    <div class="d-flex justify-content-end">
+        <div >
+            <form action="{{ route('post_logout') }}" id="logoutform" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger" id="logoutbtn" ><i class="fa fa-sign-out"
+                        aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
     <div class="content">
-        <div class="container">
-            <form action="{{ route('add_task') }}" class="row-g3" method="post" id="task-form">
+        <div class="container m-4">
+            <form action="{{ route('add_task') }}" class="row-g3 task" method="post" id="task-form">
                 @csrf
                 <div class="-row d-flex justify-content-between">
                     <div class="-col-md-9 flex-fill me-3">
@@ -72,46 +79,74 @@
 
         <div class="list">
             <h3>Tâches en cours</h3>
-                @if ($taches_en_cours->count() == 0)
-                    Aucune tâche en cours
-                @endif
-                @foreach ($taches_en_cours as $tache)
-                    <ul>
-                        <form id="myForm{{ $tache->id }}" action="{{ route('update_task', ['id' => $tache->id]) }}"
-                            class="border-0 d-flex" method="post">
-                            @csrf
-                            @method('put')
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="id"
-                                    {{ $tache->etat == 'terminée' ? 'checked' : '' }}
-                                    onclick="submitForm({{ $tache->id }})">
-                                <label class="form-check-label" for="gridCheck">{{ $tache->nom }}</label>
-                            </div>
-                        </form>
-                    </ul>
-                @endforeach
-
-            <h3>Tâches terminées</h3>
-                @if ($taches_terminées->count() == 0)
-                    Aucune tâche terminée
-                @endif
-                @foreach ($taches_terminées as $tache)
+            @if ($taches_en_cours->count() == 0)
+                Aucune tâche en cours
+            @endif
+            @foreach ($taches_en_cours as $tache)
+                <ul>
                     <form id="myForm{{ $tache->id }}" action="{{ route('update_task', ['id' => $tache->id]) }}"
-                        class="border-0 p-1 ms-2 " method="post">
+                        class="d-flex" method="post">
                         @csrf
                         @method('put')
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="id"
-                                {{ $tache->etat == 'terminée' ? 'checked' : '' }}
+                                {{ $tache->terminee == true ? 'checked' : '' }}
                                 onclick="submitForm({{ $tache->id }})">
                             <label class="form-check-label" for="gridCheck">{{ $tache->nom }}</label>
                         </div>
                     </form>
-                @endforeach
+                </ul>
+            @endforeach
+
+            <h3>Tâches terminées</h3>
+            @if ($taches_terminées->count() == 0)
+                Aucune tâche terminée
+            @endif
+            @foreach ($taches_terminées as $tache)
+                <table>
+                    <tr>
+                        <td>
+                            <form action="{{ route('delete_task', ['id' => $tache->id]) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="border-0" type="submit"><i class="fa fa-trash"
+                                        aria-hidden="true"></i></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form id="myForm{{ $tache->id }}"
+                                action="{{ route('update_task', ['id' => $tache->id]) }}" class="p-1 ms-2 "
+                                method="post">
+                                @csrf
+                                @method('put')
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="id"
+                                        {{ $tache->terminee == true ? 'checked' : '' }}
+                                        onclick="submitForm({{ $tache->id }})">
+                                    <label class="form-check-label" for="gridCheck">{{ $tache->nom }}</label>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            @endforeach
         </div>
     </div>
 
     <script>
+        function logout(e) {
+            const form = document.getElementById(`logoutform`);
+
+            const shouldlogout=confirm('Voulez-vous vraiment vous déconnecter?');
+
+            if(shouldlogout===true){
+                form.submit();
+            } else{
+                alert('Déconnexion annulée');
+            }
+
+        }
+
         function submitForm(id) {
             const form = document.getElementById(`myForm${id}`); // 'myForm'+ ..
 
@@ -119,6 +154,17 @@
                 form.submit();
             }
         }
+
+        (function() {
+            const logoutbtn = document.getElementById(`logoutbtn`);
+
+            logoutbtn.addEventListener('click', function(e){
+                e.preventDefault();
+
+               logout(e);
+            });
+
+        })();
     </script>
 </body>
 

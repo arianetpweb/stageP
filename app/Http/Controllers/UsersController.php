@@ -33,14 +33,15 @@ class UsersController extends Controller
 
     public function register(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'firstName' => 'required',
+            'email' => 'required|email|unique:users',
+            'contact' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
         try {
-            $this->validate($request, [
-                'name' => 'required',
-                'firstName' => 'required',
-                'email' => 'required|email|unique:users',
-                'contact' => 'required',
-                'password' => 'required|confirmed|min:8',
-            ]);
+
 
             $user = User::create([
                 'name' => $request->input('name'),
@@ -64,6 +65,11 @@ class UsersController extends Controller
 
     public function authenticate(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials, ['table' => 'users'])) {

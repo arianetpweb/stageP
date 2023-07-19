@@ -4,20 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tâches</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <style>
-        .navbar {
-            background-color: rgb(105, 105, 201);
-        }
 
-        .btn-danger {
-            margin: 20px;
-            text-align: left;
-        }
 
         .content {
             max-width: 700px;
@@ -29,7 +22,6 @@
             padding: 30px;
             border: 1px solid #CCC;
             border-radius: 13px;
-
         }
 
         .list {
@@ -40,25 +32,24 @@
         .row .col-md-2 #logout:hover::after {
             content: "Déconnecter";
         }
+        .cabedge{
+            color: red;
+        }
     </style>
 </head>
 
 <body>
-
     <nav class="navbar bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light" href="#">Bonjour {{ Auth::user()->firstName }}</a>
-        </div>
-    </nav>
-    <div class="d-flex justify-content-end">
-        <div >
+        <a class="navbar-brand text-light" href="#">Bonjour {{ Auth::user()->firstName }}</a>
+        <div class="d-flex justify-content-end">
             <form action="{{ route('post_logout') }}" id="logoutform" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-danger" id="logoutbtn" ><i class="fa fa-sign-out"
+                <button type="submit" class="btn btn-danger" id="logoutbtn"><i class="fa fa-sign-out"
                         aria-hidden="true"></i></button>
             </form>
         </div>
-    </div>
+    </nav>
+
     <div class="content">
         <div class="container m-4">
             <form action="{{ route('add_task') }}" class="row-g3 task" method="post" id="task-form">
@@ -67,7 +58,8 @@
                     <div class="-col-md-9 flex-fill me-3">
                         <div class="form-group">
                             <input type="text" name="nom" class="form-control" placeholder="Entrez votre tâche"
-                                id="task-input">
+                                id="task-input" required>
+                                
                         </div>
                     </div>
                     <div class="-col-md-3">
@@ -83,19 +75,29 @@
                 Aucune tâche en cours
             @endif
             @foreach ($taches_en_cours as $tache)
-                <ul>
-                    <form id="myForm{{ $tache->id }}" action="{{ route('update_task', ['id' => $tache->id]) }}"
-                        class="d-flex" method="post">
-                        @csrf
-                        @method('put')
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="id"
-                                {{ $tache->terminee == true ? 'checked' : '' }}
-                                onclick="submitForm({{ $tache->id }})">
-                            <label class="form-check-label" for="gridCheck">{{ $tache->nom }}</label>
-                        </div>
-                    </form>
-                </ul>
+                <table>
+                    <td>
+                        <form action="{{ route('delete_task', ['id' => $tache->id]) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="border-0" type="submit" style="background-color: white" ><i class="fa fa-trash cabedge"
+                                    aria-hidden="true"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form id="myForm{{ $tache->id }}" action="{{ route('update_task', ['id' => $tache->id]) }}"
+                            class="d-flex" method="post">
+                            @csrf
+                            @method('put')
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="id"
+                                    {{ $tache->terminee == true ? 'checked' : '' }}
+                                    onclick="submitForm({{ $tache->id }})">
+                                <label class="form-check-label" for="gridCheck">{{ $tache->nom }}</label>
+                            </div>
+                        </form>
+                    </td>
+                </table>
             @endforeach
 
             <h3>Tâches terminées</h3>
@@ -109,7 +111,7 @@
                             <form action="{{ route('delete_task', ['id' => $tache->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button class="border-0" type="submit"><i class="fa fa-trash"
+                                <button class="border-0" type="submit" style="background-color: white" ><i class="fa fa-trash cabedge"
                                         aria-hidden="true"></i></button>
                             </form>
                         </td>
@@ -137,11 +139,11 @@
         function logout(e) {
             const form = document.getElementById(`logoutform`);
 
-            const shouldlogout=confirm('Voulez-vous vraiment vous déconnecter?');
+            const shouldlogout = confirm('Voulez-vous vraiment vous déconnecter?');
 
-            if(shouldlogout===true){
+            if (shouldlogout === true) {
                 form.submit();
-            } else{
+            } else {
                 alert('Déconnexion annulée');
             }
 
@@ -158,10 +160,10 @@
         (function() {
             const logoutbtn = document.getElementById(`logoutbtn`);
 
-            logoutbtn.addEventListener('click', function(e){
+            logoutbtn.addEventListener('click', function(e) {
                 e.preventDefault();
 
-               logout(e);
+                logout(e);
             });
 
         })();

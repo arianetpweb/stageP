@@ -10,6 +10,8 @@ class TaskController extends Controller
 {
     public function addtask(Request $request)
     {
+        $this->validate($request, [
+            'nom' => 'required']);
         try {
 
         $user = Auth::user();

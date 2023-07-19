@@ -75,7 +75,10 @@ class UsersController extends Controller
         if (auth()->attempt($credentials, ['table' => 'users'])) {
             return redirect()->route('get_register');
         } else {
-            return redirect()->back()->withErrors(['message' => 'Identifiants invalides']);
+            //return redirect()->back()->withErrors(['message' => 'Identifiants invalides']);
+            ?>
+            <script>alert('Identifiants incorrects');</script>
+            <?php
         }
     }
 

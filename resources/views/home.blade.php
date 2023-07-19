@@ -10,8 +10,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <style>
-
-
         .content {
             max-width: 700px;
             margin: auto;
@@ -32,7 +30,8 @@
         .row .col-md-2 #logout:hover::after {
             content: "Déconnecter";
         }
-        .cabedge{
+
+        .cabedge {
             color: red;
         }
     </style>
@@ -58,8 +57,10 @@
                     <div class="-col-md-9 flex-fill me-3">
                         <div class="form-group">
                             <input type="text" name="nom" class="form-control" placeholder="Entrez votre tâche"
-                                id="task-input" required>
-                                
+                                id="task-input">
+                            @error('nom')
+                                <i class="text-danger">{{ $message }}</i>
+                            @enderror
                         </div>
                     </div>
                     <div class="-col-md-3">
@@ -80,8 +81,8 @@
                         <form action="{{ route('delete_task', ['id' => $tache->id]) }}" method="post">
                             @csrf
                             @method('delete')
-                            <button class="border-0" type="submit" style="background-color: white" ><i class="fa fa-trash cabedge"
-                                    aria-hidden="true"></i></button>
+                            <button class="border-0" type="submit" style="background-color: white"><i
+                                    class="fa fa-trash cabedge" aria-hidden="true"></i></button>
                         </form>
                     </td>
                     <td>
@@ -111,8 +112,8 @@
                             <form action="{{ route('delete_task', ['id' => $tache->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button class="border-0" type="submit" style="background-color: white" ><i class="fa fa-trash cabedge"
-                                        aria-hidden="true"></i></button>
+                                <button class="border-0" type="submit" style="background-color: white"><i
+                                        class="fa fa-trash cabedge" aria-hidden="true"></i></button>
                             </form>
                         </td>
                         <td>

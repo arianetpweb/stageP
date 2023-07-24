@@ -17,11 +17,11 @@
 
         hr {
             color: rgb(36, 128, 182);
-            max-width: 600px;
 
         }
 
-        .container {
+        .container,
+            {
 
             margin: auto;
         }
@@ -44,17 +44,20 @@
 <body>
 
     <div class="container">
-        <h2 style="text-align: center">Bienvenue sur TaskManager !</h2>
+
         <br>
         <form action="{{ route('post_login') }}" method="post">
-
             @csrf
             <div class="content">
-                <div class="">
-                    <h2>Connexion</h2>
-                    <hr>
-                    <br>
-                </div>
+                <center>
+                    <div class="title">
+                        <img src="{{ asset('images/taskmanager2.png') }}" style="width: 180px;" class="image"
+                            alt="">
+                        <h2>Connexion</h2>
+                    </div>
+                </center>
+                <hr>
+                <br>
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
                     <input type="text" name="email" class="form-control" value="{{ old('email') }}">

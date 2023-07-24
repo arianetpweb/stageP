@@ -27,7 +27,10 @@
             margin: 20px;
         }
 
-        .row .col-md-2 #logout:hover::after {
+        #logoutbtn{
+transition: all .3s ease;
+        }
+       #logoutbtn:hover::after {
             content: "Déconnecter";
         }
 
@@ -38,8 +41,8 @@
 </head>
 
 <body>
-    <nav class="navbar bg-dark">
-        <a class="navbar-brand text-light" href="#">Bonjour {{ Auth::user()->firstName }}</a>
+    <nav class="navbar bg-dark px-5">
+        <a class="navbar-brand text-light" href="#" >Bonjour {{ Auth::user()->firstName }}</a>
         <div class="d-flex justify-content-end">
             <form action="{{ route('post_logout') }}" id="logoutform" method="POST">
                 @csrf

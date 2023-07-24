@@ -29,26 +29,23 @@
 </head>
 
 <body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light" href="#">Lorem</a>
-        </div>
-    </nav><br>
+    <br>
     <div class="container">
         <form class="row g-3" action="{{ route('post_register') }}" method="post">
+            <img src="{{ asset('images/taskmanager2.png') }}"  style="width: 150px" alt="">
             <h2>Création de compte</h2>
             <hr><br>
             @csrf
             <div class="col-md-6">
                 <label for="name" class="form-label">Nom</label>
-                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" name="name" placeholder="Entrez votre nom" value="{{ old('name') }}">
                 @error('name')
                     <i class="text-danger">{{ $message }}</i>
                 @enderror
             </div>
             <div class="col-md-6">
                 <label for="firstName" class="form-label">Prénom</label>
-                <input type="text" class="form-control" name="firstName" value="{{ old('firstName') }}">
+                <input type="text" class="form-control" name="firstName" placeholder="Entrez votre prénom" value="{{ old('firstName') }}">
                 @error('firstName')
                     <i class="text-danger">{{ $message }}</i>
                 @enderror
@@ -69,7 +66,7 @@
             </div>
             <div class="col-md-6">
                 <label for="password" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" name="password" value="{{ old('password') }}">
+                <input type="password" class="form-control" name="password" placeholder="Entrez un mot de passe" value="{{ old('password') }}">
                 @error('password')
                     <i class="text-danger">{{ $message }}</i>
                 @enderror
@@ -77,7 +74,10 @@
             </div>
             <div class="col-md-6">
                 <label for="password_confirmation" class="form-label">Confirmer Mot de passe </label>
-                <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirmez le mot de passe" value="{{ old('password_confirmation') }}">
+                @error('password_confirmation')
+                    <i class="text-danger">{{ $message }}</i>
+                @enderror
             </div>
 
             <div class="col-12">

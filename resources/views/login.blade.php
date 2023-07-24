@@ -60,14 +60,14 @@
                 <br>
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input type="text" name="email" class="form-control" value="{{ old('email') }}">
+                    <input type="text" name="email" class="form-control" placeholder="john@example.com" value="{{ old('email') }}">
                     @error('email')
                         <i class="text-danger">{{ $message }}</i>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="password" class="form-label">Mot de passe </label>
-                    <input type="password" name="password" class="form-control" value="{{ old('password') }}">
+                    <input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" value="{{ old('password') }}">
                     @error('password')
                         <i class="text-danger">{{ $message }}</i>
                     @enderror

@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable= [
+    protected $fillable = [
         'name',
         'firstName',
         'email',
@@ -43,8 +43,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function taches()  {
-return $this->hasMany(Task::class);
+    public function taches()
+    {
+        return $this->hasMany(Task::class);
     }
-
 }

@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Email </label>
-                <input type="email" class="form-control" name="email" placeholder="john@example.com" value="{{ old('email') }}">
+                <input type="text" class="form-control" name="email" placeholder="john@example.com" value="{{ old('email') }}">
                 @error('email')
                     <i class="text-danger">{{ $message }}</i>
                 @enderror

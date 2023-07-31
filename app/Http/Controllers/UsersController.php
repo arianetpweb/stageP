@@ -73,7 +73,7 @@ class UsersController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials, ['table' => 'users'])) {
-            return redirect()->route('get_register');
+            return redirect()->route('index');
         } else {
             return redirect()->back()->withErrors(['message' => 'Identifiants invalides']);
 
